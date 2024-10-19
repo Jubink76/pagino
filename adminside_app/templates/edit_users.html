@@ -1,0 +1,91 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+
+{% block csslink %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'admin/css/add_users.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<div class="main-wrapper">
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <input type="search" placeholder="Search products" class="w-80 bg-[#2A3038] border border-white/10 rounded-lg px-4 py-2 text-white">
+        <button class="bg-[#00d25b] text-white px-4 py-2 rounded-lg hover:bg-opacity-90">+ Create New Project</button>
+    </div>
+
+    <!-- Content Area -->
+    <div class="content-wrapper">
+        <div class="text-sm text-gray-400 mb-6">
+            <span>user</span>
+            <span class="mx-2">></span>
+            <span>Add new user</span>
+        </div>
+
+        <div class="bg-[#191c24] rounded-lg p-6">
+            <h2 class="text-xl font-semibold mb-6">Edit users</h2>
+            
+            <form>
+                <div class="grid grid-cols-2 gap-6">
+                    <!-- Left Column -->
+                    <div>
+                        <div class="mb-4">
+                            <label class="block text-gray-400 text-sm mb-2">Name</label>
+                            <input type="text" class="form-input" value="Kristin Watson">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="block text-gray-400 text-sm mb-2">Email address</label>
+                            <input type="email" class="form-input" value="Kristin.Watson@gmail.com">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="block text-gray-400 text-sm mb-2">City</label>
+                            <input type="text" class="form-input" value="California">
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div>
+                        <div class="mb-4">
+                            <label class="block text-gray-400 text-sm mb-2">Mobile number</label>
+                            <input type="tel" class="form-input" value="+91987654321">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="block text-gray-400 text-sm mb-2">Address</label>
+                            <input type="text" class="form-input" value="4140 Parker road,allentown">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="block text-gray-400 text-sm mb-2">Country</label>
+                            <input type="text" class="form-input" value="United States">
+                        </div>
+                    </div>
+
+                    <!-- Upload Photo - Full Width -->
+                    <div class="col-span-2">
+                        <label class="block text-gray-400 text-sm mb-2">Upload photo</label>
+                        <div class="upload-area">
+                            <div class="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                </svg>
+                            </div>
+                            <p class="text-sm text-gray-400 mb-1">Drag & Drop or choose file to update</p>
+                            <p class="text-xs text-gray-500">Supported formats: jpeg,png</p>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="col-span-2 flex justify-end gap-4 mt-6">
+                        <button type="button" class="btn-secondary">Cancel</button>
+                        <button type="submit" class="btn-primary">Edit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

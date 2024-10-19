@@ -1,0 +1,41 @@
+{% extends 'without_user_base.html' %}
+
+{% load static %}
+
+{% block css_link %}<link rel="stylesheet" href="{% static 'user/css/user_login.css' %}"> {% endblock %}
+
+{% block content %}
+<!-- Login Form -->
+<div class="login-container">
+    <div class="login-form">
+        <h1>Login Here</h1>
+        <h2>Welcome !!!</h2>
+        <form action="#" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username</label>  
+                <input type="text" id="username" name="username" placeholder="Username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <input type="checkbox" id="remember" name="remember">
+                <label for="remember">Remember me</label>
+                <a href="#" class="forgot-password">Forgot Password</a>
+            </div>
+            <button type="submit" class="btn-signin">SIGN IN</button>
+        </form>
+        <div class="signup-link">
+            Don't have an account? <a href="{% url 'user_signup' %}">Sign up</a>
+        </div>
+        <div class="social-login">
+            <button><i class="fa fa-facebook"></i></button>
+            <button><i class="fa fa-google"></i></button>
+            <button><i class="fa fa-apple"></i></button>
+        </div>
+    </div>
+    <img src="{% static 'user/images/logo/login_image.png' %}" alt="Login" class="login-image">
+</div>
+{% endblock %}
