@@ -3,14 +3,15 @@
 
 {% block csslink %}
 <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'admin/css/admin_user.css' %}">
 <link rel="stylesheet" href="{% static 'admin/css/add_category.css' %}">
 {% endblock %}
 
 {% block content %}
 <div class="main-content">
-    <h2 class="page-title">Add Category</h2>
+    <h2 class="page-title">Edit Category</h2>
     <div class="breadcrumb">
-        category / Add category
+        category / Edit category
     </div>
 
     <div class="form-container">
@@ -20,7 +21,7 @@
             <div class="upload-area">
                 <img src="/api/placeholder/48/48" alt="upload" class="mb-4">
                 <p class="text-gray-400 mb-4">Drag and drop image here, or click add image</p>
-                <button class="btn-primary">Add Image</button>
+                <button class="btn-primary">Edit Image</button>
             </div>
         </div>
 
@@ -47,7 +48,7 @@
 
     <!-- Save Button -->
     <div class="mt-6">
-        <button class="btn-primary">Save Category</button>
+        <button class="btn-primary">Update Category</button>
     </div>
 </div>
 </div>

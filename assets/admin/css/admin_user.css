@@ -169,3 +169,63 @@ body {
     background: #2d303b;
     border-radius: 3px;
 }
+.main-panel {
+    float:left;
+    margin-left: 0px; /* Adjust based on your sidebar width */
+    padding-top: 70px; /* Adjust based on your navbar height */
+    width: calc(100% - 260px);
+    min-height: 100vh;
+    background: #191c24;
+    transition: all 0.3s ease;
+}
+
+/* Content wrapper spacing */
+.content-wrapper {
+    padding: 1.875rem 1.875rem 0;
+    width: 100%;
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+}
+
+/* Responsive layout adjustments */
+@media (max-width: 991px) {
+    .main-panel {
+        margin-left: 0;
+        width: 100%;
+    }
+    
+    .content-wrapper {
+        padding: 1.5rem 1.5rem 0;
+    }
+}
+
+/* Card fixes */
+.card {
+    margin-bottom: 30px;
+    border: none;
+    box-shadow: 0 0 0.875rem 0 rgba(33,37,41,.05);
+}
+
+/* Grid margin fixes */
+.grid-margin {
+    margin-bottom: 1.875rem;
+}
+
+.stretch-card {
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+}
+
+.stretch-card > .card {
+    width: 100%;
+    min-width: 100%;
+}
+
+/* Table responsive fixes */
+.table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}

@@ -1,0 +1,145 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+
+{% block csslink %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'admin/css/admin_user.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="main-wrapper">
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <input type="search" placeholder="Search products" class="search-box">
+        <div class="flex items-center gap-4">
+            <button class="btn-primary">
+                <span>+ Create New Project</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <h2 class="page-title">Products List</h2>
+
+        <!-- Users Table Header -->
+        <div class="flex justify-between items-center mb-6">
+            <input type="search" placeholder="search" class="search-box" style="max-width: 240px;">
+            <div class="flex gap-3">
+                <a href=""><button class="btn-primary">
+                    <span>Add new product</span>
+                </button></a>
+                <button class="px-4 py-2 bg-gray-800 rounded-lg hover:bg-gray-700">
+                    Filter
+                </button>
+            </div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-container">
+            <table class="w-full">
+                <thead>
+                    <tr class="text-left bg-[#191c24]">
+                        <th class="px-6 py-3 text-sm font-medium">Sl No</th>
+                        <th class="px-6 py-3 text-sm font-medium">Product ID</th>
+                        <th class="px-6 py-3 text-sm font-medium">Product Name</th>
+                        <th class="px-6 py-3 text-sm font-medium">Category</th>
+                        <th class="px-6 py-3 text-sm font-medium">Author</th>
+                        <th class="px-6 py-3 text-sm font-medium">Language</th>
+                        <th class="px-6 py-3 text-sm font-medium">Stock</th>
+                        <th class="px-6 py-3 text-sm font-medium">Price</th>
+                        <th class="px-6 py-3 text-sm font-medium">Description</th>
+                        <th class="px-6 py-3 text-sm font-medium">Added date</th>
+                        <th class="px-6 py-3 text-sm font-medium">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-row">
+                        <td class="px-6 py-4 text-sm">1</td>
+                        <td class="px-6 py-4 text-sm">23454</td>
+                        <td class="px-6 py-4 text-sm">Harry potter</td>
+                        <td class="px-6 py-4 text-sm">Adventure</td>
+                        <td class="px-6 py-4 text-sm">JK Rawling</td>
+                        <td class="px-6 py-4 text-sm">English</td>
+                        <td class="px-6 py-4 text-sm">10</td>
+                        <td class="px-6 py-4 text-sm">₹450</td>
+                        <td class="px-6 py-4 text-sm">Description</td>
+                        <td class="px-6 py-4 text-sm">10-10-24</td>
+                        <td class="px-6 py-4 text-sm">
+                            <div class="flex gap-2">
+                                <button class="p-1 hover:text-blue-500">👁️</button>
+                                <button class="p-1 hover:text-green-500">✏️</button>
+                                <button class="p-1 hover:text-red-500">🗑️</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="table-row">
+                        <td class="px-6 py-4 text-sm">1</td>
+                        <td class="px-6 py-4 text-sm">23454</td>
+                        <td class="px-6 py-4 text-sm">Harry potter</td>
+                        <td class="px-6 py-4 text-sm">Adventure</td>
+                        <td class="px-6 py-4 text-sm">JK Rawling</td>
+                        <td class="px-6 py-4 text-sm">English</td>
+                        <td class="px-6 py-4 text-sm">10</td>
+                        <td class="px-6 py-4 text-sm">₹450</td>
+                        <td class="px-6 py-4 text-sm">Description</td>
+                        <td class="px-6 py-4 text-sm">10-10-24</td>
+                        <td class="px-6 py-4 text-sm">
+                            <div class="flex gap-2">
+                                <button class="p-1 hover:text-blue-500">👁️</button>
+                                <button class="p-1 hover:text-green-500">✏️</button>
+                                <button class="p-1 hover:text-red-500">🗑️</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="table-row">
+                        <td class="px-6 py-4 text-sm">1</td>
+                        <td class="px-6 py-4 text-sm">23454</td>
+                        <td class="px-6 py-4 text-sm">Harry potter</td>
+                        <td class="px-6 py-4 text-sm">Adventure</td>
+                        <td class="px-6 py-4 text-sm">JK Rawling</td>
+                        <td class="px-6 py-4 text-sm">English</td>
+                        <td class="px-6 py-4 text-sm">10</td>
+                        <td class="px-6 py-4 text-sm">₹450</td>
+                        <td class="px-6 py-4 text-sm">Description</td>
+                        <td class="px-6 py-4 text-sm">10-10-24</td>
+                        <td class="px-6 py-4 text-sm">
+                            <div class="flex gap-2">
+                                <button class="p-1 hover:text-blue-500">👁️</button>
+                                <button class="p-1 hover:text-green-500">✏️</button>
+                                <button class="p-1 hover:text-red-500">🗑️</button>
+                            </div>
+                        </td>
+                    </tr> 
+                    
+                </tbody>
+            </table>
+            
+            <!-- Pagination -->
+            <div class="p-4 flex items-center justify-between border-t border-gray-700">
+                <div class="flex items-center gap-2 text-sm text-gray-400">
+                    <span>Showing</span>
+                    <select class="bg-gray-800 border border-gray-700 rounded px-2 py-1">
+                        <option>15</option>
+                    </select>
+                    <span>out of 100 records</span>
+                </div>
+                <div class="flex gap-1">
+                    <button class="px-3 py-1 rounded text-gray-400 hover:bg-gray-800 hover:text-white" disabled>
+                        <!-- Left arrow symbol -->
+                        <span>&#8592;</span>
+                    </button>
+                    <button class="px-3 py-1 bg-gray-800 rounded text-white">1</button>
+                    <button class="px-3 py-1 rounded text-gray-400 hover:bg-gray-800">2</button>
+                    <button class="px-3 py-1 rounded text-gray-400 hover:bg-gray-800">3</button>
+                    <button class="px-3 py-1 rounded text-gray-400 hover:bg-gray-800">4</button>
+                    <button class="px-3 py-1 rounded text-gray-400 hover:bg-gray-800 hover:text-white">
+                        <!-- Right arrow symbol -->
+                        <span>&#8594;</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock%}

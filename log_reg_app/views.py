@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from log_reg_app.models import UserTable
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
+from django.urls import reverse
 
 # Create your views here.
 
@@ -88,4 +89,25 @@ def user_logout(request):
     return redirect('homepage_before_login')
 
 def admin_login(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request,username=username,password = password)
+        
+        if user is not None and user.is_superuser:
+            login(request,user)
+            messages.success(request,f"{username}logined successfully." )
+            return redirect(reverse('admin_dashboard'))
+        else:
+            messages.error(request,"You don't have admin privileges")
+            return redirect('admin_login')
+        
+    if request.method == "GET":
+        if request.user.is_authenticated:
+            if request.user.is_superuser:
+                return redirect('admin_dashboard')
+            else:
+                messages.error(request,"you dont have admin privileges")
+                return redirect('admin_login')
+
     return render(request,'admin_login.html')

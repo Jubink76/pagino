@@ -13,10 +13,11 @@
             <h1>Book Shop</h1>
             <h2>Welcome 👋</h2>
             <p>Please login here</p>
-            <form>
+            <form action="#" method="post">
+                {% csrf_token %}
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="test1@gmail.com" required>
+                    <label for="text">Username</label>
+                    <input type="text" id="text" name="username" placeholder="Username" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
