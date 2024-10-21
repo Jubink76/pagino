@@ -4,6 +4,7 @@
 {% block csslink %}
 <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
 <link rel="stylesheet" href="{% static 'admin/css/add_users.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/view_users.css' %}">
 {% endblock %}
 
 
@@ -24,9 +25,10 @@
         </div>
 
         <div class="bg-[#191c24] rounded-lg p-6">
-            <h2 class="text-xl font-semibold mb-6">Edit users</h2>
+            <h2 class="text-xl font-semibold mb-6">View users</h2>
             
-            <form>
+            <form method="POST" action="{% url 'view_users' record.id %}">
+                {% csrf_token %}
                 <div class="grid grid-cols-2 gap-6">
                     <!-- Left Column -->
                     <div>
@@ -62,30 +64,73 @@
                             <label class="block text-gray-400 text-sm mb-2">Mobile number</label>
                             <input type="tel" class="form-input" name="phone_number" value="{{record.phone_number}}">
                         </div>
-                    </div>
+                    </div>         
 
                     <!-- Upload Photo - Full Width -->
-                    <div class="col-span-2">
-                        <label class="block text-gray-400 text-sm mb-2">Upload photo</label>
-                        <div class="upload-area">
-                            <div class="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center mx-auto mb-4">
-                                <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                    <div class="profile-upload-container">
+                        <label class="profile-image-wrapper">
+                            <!-- Default image using placeholder -->
+                            <img src="/api/placeholder/150/150" 
+                                 alt="Profile" 
+                                 class="profile-image" 
+                                 id="profilePreview">
+                            
+                            <div class="upload-overlay">
+                                <svg class="camera-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" 
+                                          stroke-linejoin="round" 
+                                          stroke-width="2" 
+                                          d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z">
+                                    </path>
+                                    <path stroke-linecap="round" 
+                                          stroke-linejoin="round" 
+                                          stroke-width="2" 
+                                          d="M15 13a3 3 0 11-6 0 3 3 0 016 0z">
+                                    </path>
                                 </svg>
                             </div>
-                            <p class="text-sm text-gray-400 mb-1">Drag & Drop or choose file to update</p>
-                            <p class="text-xs text-gray-500">Supported formats: jpeg,png</p>
-                        </div>
+                            
+                            <input type="file" 
+                                   class="file-input" 
+                                   id="profileUpload" 
+                                   accept="image/jpeg, image/png">
+                        </label>
+                        
+                        <p class="upload-text">Click to upload new photo</p>
+                        <p class="format-text">Supported formats: jpeg, png</p>
                     </div>
+                
+
 
                     <!-- Action Buttons -->
                     <div class="col-span-2 flex justify-end gap-4 mt-6">
-                        <button type="button" class="btn-secondary">Cancel</button>
-                        <button type="submit" class="btn-primary">Edit</button>
+                        <button type="button" class="btn-secondary">Back</button>
+                        <button type="submit" class="btn-danger">
+                            {% if record.is_blocked %}
+                                Unblock
+                            {% else %}
+                                Block
+                            {% endif %}
+                        </button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
+<script>
+    const profileUpload = document.getElementById('profileUpload');
+    const profilePreview = document.getElementById('profilePreview');
+
+    profileUpload.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                profilePreview.src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
 {% endblock %}

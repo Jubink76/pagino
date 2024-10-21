@@ -6,10 +6,6 @@ from django.urls import reverse
 
 # Create your views here.
 
-def homepage_before_login(request):
-
-    return render(request,'homepage_before_login.html')
-
 def user_login(request):
     
     if request.method == "POST":
@@ -18,14 +14,14 @@ def user_login(request):
         user = authenticate(request, username = username, password = password)
         if user is not None:
             login(request, user)
-            return redirect('homepage_after_login')
+            return redirect(reverse('homepage_after_login'))
         else:
             messages.error(request,"username or password is invalid")
             return render(request,'user_login.html')
     
     if request.method == "GET":
         if request.user.is_authenticated:
-            return redirect('homepage_after_login')
+            return redirect(reverse('homepage_after_login'))
     return render(request,'user_login.html')
 
 def user_signup(request):

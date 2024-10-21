@@ -26,44 +26,55 @@
         <div class="bg-[#191c24] rounded-lg p-6">
             <h2 class="text-xl font-semibold mb-6">Add new user</h2>
             
-            <form>
+            <form method="POST" action="{% url 'add_users' %}">
+                {% csrf_token %}
                 <div class="grid grid-cols-2 gap-6">
                     <!-- Left Column -->
                     <div>
                         <div class="mb-4">
-                            <label class="block text-gray-400 text-sm mb-2">Name</label>
-                            <input type="text" class="form-input" value="Kristin Watson">
+                            <label class="block text-gray-400 text-sm mb-2">First name</label>
+                            <input type="text" class="form-input" name="first_name" value="">
                         </div>
                         
                         <div class="mb-4">
-                            <label class="block text-gray-400 text-sm mb-2">Email address</label>
-                            <input type="email" class="form-input" value="Kristin.Watson@gmail.com">
+                            <label class="block text-gray-400 text-sm mb-2">Username</label>
+                            <input type="text" class="form-input" name="username" value="">
+                        </div>
+            
+                        <div class="mb-4">
+                            <label class="block text-gray-400 text-sm mb-2">Password</label>
+                            <input type="password" class="form-input" name="password" value="">
                         </div>
                         
                         <div class="mb-4">
-                            <label class="block text-gray-400 text-sm mb-2">City</label>
-                            <input type="text" class="form-input" value="California">
+                            <label class="block text-gray-400 text-sm mb-2">Gender</label>
+                            <input type="text" class="form-input" name="gender" value="">
                         </div>
                     </div>
-
+            
                     <!-- Right Column -->
                     <div>
                         <div class="mb-4">
+                            <label class="block text-gray-400 text-sm mb-2">Last name</label>
+                            <input type="text" class="form-input" name="last_name" value="">
+                        </div>
+            
+                        <div class="mb-4">
+                            <label class="block text-gray-400 text-sm mb-2">Email address</label>
+                            <input type="email" class="form-input" name="email" value="">
+                        </div>
+            
+                        <div class="mb-4">
+                            <label class="block text-gray-400 text-sm mb-2">Confirm Password</label>
+                            <input type="password" class="form-input" name="confirm_password" value="">
+                        </div>
+            
+                        <div class="mb-4">
                             <label class="block text-gray-400 text-sm mb-2">Mobile number</label>
-                            <input type="tel" class="form-input" value="+91987654321">
-                        </div>
-                        
-                        <div class="mb-4">
-                            <label class="block text-gray-400 text-sm mb-2">Address</label>
-                            <input type="text" class="form-input" value="4140 Parker road,allentown">
-                        </div>
-                        
-                        <div class="mb-4">
-                            <label class="block text-gray-400 text-sm mb-2">Country</label>
-                            <input type="text" class="form-input" value="United States">
+                            <input type="tel" class="form-input" name="phone_number" value="">
                         </div>
                     </div>
-
+            
                     <!-- Upload Photo - Full Width -->
                     <div class="col-span-2">
                         <label class="block text-gray-400 text-sm mb-2">Upload photo</label>
@@ -74,13 +85,15 @@
                                 </svg>
                             </div>
                             <p class="text-sm text-gray-400 mb-1">Drag & Drop or choose file to upload</p>
-                            <p class="text-xs text-gray-500">Supported formats: jpeg,png</p>
+                            <p class="text-xs text-gray-500">Supported formats: jpeg, png</p>
                         </div>
                     </div>
-
+            
                     <!-- Action Buttons -->
                     <div class="col-span-2 flex justify-end gap-4 mt-6">
-                        <button type="button" class="btn-secondary">Cancel</button>
+                        <a href="{% url 'admin_users' %}">
+                            <button type="button" class="btn-secondary">Cancel</button>
+                        </a>
                         <button type="submit" class="btn-primary">Add</button>
                     </div>
                 </div>

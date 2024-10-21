@@ -46,7 +46,7 @@
                         <th class="px-6 py-3 text-sm font-medium">Last Name</th>
                         <th class="px-6 py-3 text-sm font-medium">Email</th>
                         <th class="px-6 py-3 text-sm font-medium">Phone No</th>
-                        <th class="px-6 py-3 text-sm font-medium">Address</th>
+                        <th class="px-6 py-3 text-sm font-medium">Gender</th>
                         <th class="px-6 py-3 text-sm font-medium">Status</th>
                         <th class="px-6 py-3 text-sm font-medium">Added</th>
                         <th class="px-6 py-3 text-sm font-medium">Action</th>
@@ -61,14 +61,20 @@
                         <td class="px-6 py-4 text-sm">{{row.id}}</td>
                         <td class="px-6 py-4 text-sm">{{row.id}}</td>
                         <td class="px-6 py-4 text-sm">{{row.id}}</td>
-                        <td class="px-6 py-4 text-sm">Address</td>
-                        <td class="px-6 py-4 text-sm status-active">Active</td>
-                        <td class="px-6 py-4 text-sm">24 Jan 2023</td>
+                        <td class="px-6 py-4 text-sm">{{row.gender}}</td>
+                        <td class="px-6 py-4 text-sm {% if row.is_blocked %}status-inactive text-red-500{% else %}status-active text-green-500{% endif %}">
+                            {% if row.is_blocked %}
+                                Inactive
+                            {% else %}
+                                Active
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 text-sm">{{row.date_joined}}</td>
                         <td class="px-6 py-4 text-sm">
                             <div class="flex gap-2">
-                                <button class="p-1 hover:text-blue-500">👁️</button>
-                                <button class="p-1 hover:text-green-500">✏️</button>
-                                <button class="p-1 hover:text-red-500">🗑️</button>
+                                <a href="{% url 'view_users' row.id %}"><button class="p-1 hover:text-blue-500">👁️</button></a>
+                                <a href="{% url 'edit_users' %}"><button class="p-1 hover:text-green-500">✏️</button></a>
+                                <!--<button class="p-1 hover:text-red-500">🗑️</button>-->
                             </div>
                         </td>
                     </tr>
@@ -82,9 +88,9 @@
                 <div class="flex items-center gap-2 text-sm text-gray-400">
                     <span>Showing</span>
                     <select class="bg-gray-800 border border-gray-700 rounded px-2 py-1">
-                        <option>15</option>
+                        <option>{{users.end_index}}</option>
                     </select>
-                    <span>out of 100 records</span>
+                    <span>out of {{users.paginator.count}}records</span>
                 </div>
                 <div class="flex gap-1">
                     <button class="px-3 py-1 rounded text-gray-400 hover:bg-gray-800 hover:text-white" disabled>
