@@ -5,14 +5,42 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.paginator import Paginator
+from django.db.models import Q
 # Create your views here.
 def admin_dashboard(request):
     return render(request,'admin_dashboard.html')
 
 
 def admin_users(request):
-    user_data = UserTable.objects.all() 
-    return render(request,'admin_users.html',{'data':user_data})
+    users = UserTable.objects.all().order_by('id')
+
+    # search query
+    search_query = request.GET.get('search','')
+
+    if search_query:
+        if search_query.isdigit():
+            users = users.filter(id=search_query)
+        else:
+            users = UserTable.objects.filter(
+                Q(first_name__icontains=search_query) | 
+                Q(last_name__icontains=search_query) |
+                Q(username__icontains=search_query) |
+                Q(email__icontains=search_query)
+            ).order_by('id')
+    else:
+        users = UserTable.objects.all().order_by('id')
+    # implement pagination
+
+    paginator = Paginator(users, 5)
+    page_number = request.GET.get('page')
+    users = paginator.get_page(page_number)
+
+    
+
+    return render(request,'admin_users.html',{
+        'users':users,
+        'search_query':search_query
+    })
 
 UserTable = get_user_model()
 
@@ -73,12 +101,6 @@ def add_users(request):
             messages.error(request, f"Error occurred: {e}")
             return render(request, 'add_users.html')
         
-    # implement pagination
-    users = UserTable.objects.all()
-    paginator = Paginator(users, 5)
-    page_number = request.GET.get('page')
-    users = paginator.get_page(page_number)
-
     return render(request, 'add_users.html')
 
 

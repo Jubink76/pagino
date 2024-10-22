@@ -24,7 +24,17 @@
 
         <!-- Users Table Header -->
         <div class="flex justify-between items-center mb-6">
-            <input type="search" placeholder="search" class="search-box" style="max-width: 240px;">
+            <form method="GET" action="{% url 'admin_users' %}">
+                <div class="flex">
+                    <!-- Search input field -->
+                    <input type="search" name="search" placeholder="search" class="search-box" style="max-width: 240px;">
+            
+                    <!-- Search button -->
+                    <button type="submit" class="btn-search bg-gray-800 text-white px-3 py-1 ml-2 rounded">
+                        Search
+                    </button>
+                </div>
+            </form>
             <div class="flex gap-3">
                 <a href="{% url 'add_users' %}"><button class="btn-primary" >
                     <span>Add new user</span>
@@ -53,14 +63,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for row in data %}
+                    {% for row in users %}
                     <tr class="table-row">
                         <td class="px-6 py-4 text-sm">{{ forloop.counter }}</td>
                         <td class="px-6 py-4 text-sm">{{row.id}}</td>
                         <td class="px-6 py-4 text-sm">{{row.first_name}}</td>
-                        <td class="px-6 py-4 text-sm">{{row.id}}</td>
-                        <td class="px-6 py-4 text-sm">{{row.id}}</td>
-                        <td class="px-6 py-4 text-sm">{{row.id}}</td>
+                        <td class="px-6 py-4 text-sm">{{row.last_name}}</td>
+                        <td class="px-6 py-4 text-sm">{{row.email}}</td>
+                        <td class="px-6 py-4 text-sm">{{row.phone_number}}</td>
                         <td class="px-6 py-4 text-sm">{{row.gender}}</td>
                         <td class="px-6 py-4 text-sm {% if row.is_blocked %}status-inactive text-red-500{% else %}status-active text-green-500{% endif %}">
                             {% if row.is_blocked %}
@@ -85,25 +95,39 @@
             
             <!-- Pagination -->
             <div class="p-4 flex items-center justify-between border-t border-gray-700">
-                <div class="flex items-center gap-2 text-sm text-gray-400">
-                    <span>Showing</span>
-                    <select class="bg-gray-800 border border-gray-700 rounded px-2 py-1">
-                        <option>{{users.end_index}}</option>
-                    </select>
-                    <span>out of {{users.paginator.count}}records</span>
-                </div>
+                <div class="hint-text">Showing <b>{{ users.start_index }}</b> to <b>{{ users.end_index }}</b> Out of <b>{{ users.paginator.count }}</b> entries</div>
                 <div class="flex gap-1">
-                    <button class="px-3 py-1 rounded text-gray-400 hover:bg-gray-800 hover:text-white" disabled>
-                        <!-- Left arrow symbol -->
+                    <!-- Previous Page Button -->
+                    {% if users.has_previous %}
+                        <a href="?page={{ users.previous_page_number }}" class="px-3 py-1 rounded text-gray-400 hover:bg-gray-800 hover:text-white">
                         <span>&#8592;</span>
-                    </button>
-                    <button class="px-3 py-1 bg-gray-800 rounded text-white">1</button>
-                    <button class="px-3 py-1 rounded text-gray-400 hover:bg-gray-800">2</button>
-                    <button class="px-3 py-1 rounded text-gray-400 hover:bg-gray-800">3</button>
-                    <button class="px-3 py-1 rounded text-gray-400 hover:bg-gray-800">4</button>
-                    <button class="px-3 py-1 rounded text-gray-400 hover:bg-gray-800 hover:text-white">
-                        <!-- Right arrow symbol -->
-                        <span>&#8594;</span>
+                        </a>
+                    {% else %}
+                        <button class="px-3 py-1 rounded text-gray-400" disabled>
+                        <span>&#8592;</span>
+                        </button>
+                    {% endif %}
+
+                    <!-- Page Numbers -->
+                    {% for page_num in users.paginator.page_range %}
+                        {% if users.number == page_num %}
+                            <span class="px-3 py-1 bg-gray-800 rounded text-white">{{ page_num }}</span>
+                        {% else %}
+                            <a href="?page={{ page_num }}" class="px-3 py-1 rounded text-gray-400 hover:bg-gray-800">{{ page_num }}</a>
+                        {% endif %}
+                    {% endfor %}
+
+                    <!-- Next Page Button -->
+                    {% if users.has_next %}
+                        <a href="?page={{ users.next_page_number }}" class="px-3 py-1 rounded text-gray-400 hover:bg-gray-800 hover:text-white">
+                            <span>&#8594;</span>
+                        </a>
+                    {% else %}
+                        <button class="px-3 py-1 rounded text-gray-400" disabled>
+                            <span>&#8594;</span>
+                        </button>
+                    {% endif %}
+                    
                 </div>
             </div>
         </div>
