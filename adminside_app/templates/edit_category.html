@@ -1,5 +1,6 @@
 {% extends 'admin_base.html' %}
 {% load static %}
+{% load custom_filters %}
 
 {% block csslink %}
 <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
@@ -14,43 +15,47 @@
         category / Edit category
     </div>
 
-    <div class="form-container">
-        <!-- Thumbnail Section -->
-        <div class="form-section">
-            <h3 class="text-lg mb-4">Thumbnail</h3>
-            <div class="upload-area">
-                <img src="/api/placeholder/48/48" alt="upload" class="mb-4">
-                <p class="text-gray-400 mb-4">Drag and drop image here, or click add image</p>
-                <button class="btn-primary">Edit Image</button>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-container">
+            <!-- Thumbnail Section -->
+            <div class="form-section">
+                <h3 class="text-lg mb-4">Thumbnail</h3>
+                <div class="upload-area">
+                    <img src="{{ category.image.url }}" alt="upload" class="mb-4"> <!-- Assuming you have an image field -->
+                    <p class="text-gray-400 mb-4">Drag and drop image here, or click add image</p>
+                    <button class="btn-primary">Edit Image</button>
+                </div>
+            </div>
+
+            <!-- Form Section -->
+            <div class="form-section">
+                <div class="mb-6">
+                    <label for="category_name" class="block text-sm font-medium text-grey-700 mb-2">
+                        Category Name
+                    </label>
+                    <input type="text"
+                           id="category_name"
+                           name="category_name"
+                           value="{{ category.category_name }}"
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"> <!-- Added text-black class -->
+                </div>
+                <div class="mb-6">
+                    <label for="description" class="block text-sm font-medium text-gray-700 mb-2">
+                        Description
+                    </label>
+                    <textarea id="description"
+                              name="description"
+                              rows="4"
+                              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-black">{{ category.description }}</textarea>
+                </div>
             </div>
         </div>
 
-        <!-- Form Section -->
-        <div class="form-section">
-            <div class="mb-6">
-                <label class="form-label">Category Name</label>
-                <input 
-                    type="text" 
-                    class="form-input" 
-                    placeholder="Type category name here..."
-                >
-            </div>
-            <div class="mb-6">
-                <label class="form-label">Description</label>
-                <textarea 
-                    class="form-input" 
-                    rows="6" 
-                    placeholder="Type category description here.."
-                ></textarea>
-            </div>
+        <!-- Save Button -->
+        <div class="mt-6">
+            <button type="submit" class="btn-primary">Update Category</button>
         </div>
-    </div>
-
-    <!-- Save Button -->
-    <div class="mt-6">
-        <button class="btn-primary">Update Category</button>
-    </div>
+    </form>
 </div>
-</div>
-</div>
-{% endblock%}
+{% endblock %}

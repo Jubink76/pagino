@@ -42,55 +42,46 @@
                 <thead>
                     <tr class="text-left bg-[#191c24]">
                         <th class="px-6 py-3 text-sm font-medium">Sl No</th>
-                        <th class="px-6 py-3 text-sm font-medium">Categories</th>
+                        <th class="px-6 py-3 text-sm font-medium">Category_name</th>
+                        <th class="px-6 py-3 text-sm font-medium">Image</th>
                         <th class="px-6 py-3 text-sm font-medium">Total products</th>
-                        <th class="px-6 py-3 text-sm font-medium">Status</th>
+                        <th class="px-6 py-3 text-sm font-medium">Availability</th>
                         <th class="px-6 py-3 text-sm font-medium">Total earnings</th>
                         <th class="px-6 py-3 text-sm font-medium">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="table-row">
-                        <td class="px-6 py-4 text-sm">1</td>
-                        <td class="px-6 py-4 text-sm">Category name</td>
-                        <td class="px-6 py-4 text-sm">50</td>
-                        <td class="table-cell">
-                            <label class="toggle-switch">
-                                <input type="checkbox" class="toggle-input" checked>
-                                <span class="toggle-slider"></span>
-                                
-                            </label>
-                        </td>
-                        <td class="px-6 py-4 text-sm">₹10000</td>
-                        <td class="px-6 py-4 text-sm">
-                            <div class="flex gap-2">
-                                <button class="p-1 hover:text-blue-500">👁️</button>
-                                <button class="p-1 hover:text-green-500">✏️</button>
-                                <button class="p-1 hover:text-red-500">🗑️</button>
-                            </div>
-                        </td>
-                    </tr>
-                    <!-- More rows with alternating statuses -->
-                    <tr class="table-row">
-                        <td class="px-6 py-4 text-sm">1</td>
-                        <td class="px-6 py-4 text-sm">Category name</td>
-                        <td class="px-6 py-4 text-sm">50</td>
-                        <td class="table-cell">
-                            <label class="toggle-switch">
-                                <input type="checkbox" class="toggle-input" checked>
-                                <span class="toggle-slider"></span>
-                                
-                            </label>
-                        </td>
-                        <td class="px-6 py-4 text-sm">₹10000</td>
-                        <td class="px-6 py-4 text-sm">
-                            <div class="flex gap-2">
-                                <button class="p-1 hover:text-blue-500">👁️</button>
-                                <button class="p-1 hover:text-green-500">✏️</button>
-                                <button class="p-1 hover:text-red-500">🗑️</button>
-                            </div>
-                        </td>
-                    </tr>
+                    {% for category in categories %}
+                        {% if False == category.is_deleted %}
+                            <tr class="table-row">
+                                <td class="px-6 py-4 text-sm">{{ forloop.counter }}</td>
+                                <td class="px-6 py-4 text-sm">{{ category.category_name }}</td>
+                                <td class="px-6 py-4 text-sm">
+                                    {% if category.image %}
+                                        <img src="{{ category.image.url }}" alt="{{ category.category_name }}" width="100">
+                                    {% else %}
+                                        No Image
+                                    {% endif %}
+                                </td>
+                                <td class="px-6 py-4 text-sm">50</td>
+                                <td class="px-6 py-4 text-sm {% if category.is_active %}status-active text-green-500{% else %}status-inactive text-red-500{% endif %}">
+                                    {% if category.is_active %}
+                                        Available
+                                    {% else %}
+                                        Not Available
+                                    {% endif %}
+                                </td>
+                                <td class="px-6 py-4 text-sm">₹10000</td>
+                                <td class="px-6 py-4 text-sm">
+                                    <div class="flex gap-2">
+                                        <button class="p-1 hover:text-blue-500">👁️</button>
+                                        <a href="{% url 'edit_category' category.pk %}""><button class="p-1 hover:text-green-500">✏️</button></a>
+                                        <a href="{% url 'delete_category' category.pk %}"><button class="p-1 hover:text-red-500">🗑️</button></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
                 </tbody>
             </table>
             
