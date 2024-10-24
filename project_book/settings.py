@@ -38,18 +38,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'django.contrib.sites',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+
     'log_reg_app',
     'adminside_app',
     'userside_app',
     'cart_app',
     'address_app',
-
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.facebook',
-    'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.github',
 
 ]
 
@@ -61,8 +62,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 
-    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = 'project_book.urls'
@@ -78,8 +79,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                
                 'django.template.context_processors.request',
+                
             ],
         },
     },
@@ -156,9 +157,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
-]
 
+    'allauth.account.auth_backends.AuthenticationBackend',
+
+]
 
 AUTH_USER_MODEL = 'log_reg_app.UserTable'
 
@@ -170,4 +172,24 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'jubink76@gmail.com'
 EMAIL_HOST_PASSWORD = 'hdvvwrwgkadrpjcl'
 
-SITE_ID = 1
+SITE_ID = 4
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        },
+        'OAUTH_PKCE_ENABLED': True,
+    }
+}
+LOGIN_REDIRECT_URL = '/homepage_after_login/'
+
+LOGIN_URL = 'log_reg_app/user_login'
+
+ACCOUNT_EMAIL_VERIFICATION = "none"  # Avoids email verification redirect issues
+ACCOUNT_SIGNUP_REDIRECT_URL = 'userside_app:homepage_after_login'  # Redirect after signup
+SOCIALACCOUNT_AUTO_SIGNUP = True  # Disables the need for manual signup after social login

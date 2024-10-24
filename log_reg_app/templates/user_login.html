@@ -1,5 +1,5 @@
 {% extends 'without_user_base.html' %}
-
+{% load socialaccount %}
 {% load static %}
 
 {% block css_link %}<link rel="stylesheet" href="{% static 'user/css/user_login.css' %}"> {% endblock %}
@@ -37,7 +37,7 @@
         </div>
         <div class="social-login">
             <button><i class="fa fa-facebook"></i></button>
-            <button><i class="fa fa-google"></i></button>
+            <a href="{% provider_login_url 'google' %}"><button><i class="fa fa-google"></i></button></a>
             <button><i class="fa fa-apple"></i></button>
         </div>
     </div>
